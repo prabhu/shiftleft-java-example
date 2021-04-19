@@ -37,10 +37,8 @@ jobs:
         python-version: '3.8'
     - name: Download findings using api and convert to sarif
       run: |
-        mkdir -p ${GITHUB_WORKSPACE}/reports
-        curl -H "Authorization: Bearer ${SHIFTLEFT_ACCESS_TOKEN}" -L "https://www.shiftleft.io/api/v4/orgs/${SHIFTLEFT_ORG_ID}/apps/shiftleft-java-example/findings?per_page=249&type=secret&type=vuln&type=extscan" -o ${GITHUB_WORKSPACE}/reports/findings.json
-        sudo pip install joern2sarif
-        joern2sarif -t ng-sast -i ${GITHUB_WORKSPACE}/reports/findings.json -o ${GITHUB_WORKSPACE}/reports/ngsast-findings.sarif
+        sudo pip install shiftleft-scan-reports
+        slreporter -a $(basename $(pwd)) --branch ${{ github.head_ref || steps.extract_branch.outputs.branch }} -o ${GITHUB_WORKSPACE}/reports
       env:
         WORKSPACE: "src/main/java"
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
