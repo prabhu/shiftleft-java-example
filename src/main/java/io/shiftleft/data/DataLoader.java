@@ -57,11 +57,11 @@ public class DataLoader implements CommandLineRunner {
 
   private boolean connectToAws() {
 
-    log.info("Start Loading AWS Properties");
-    log.info("AWS AccessKey is {} and SecretKey is {}", env.getProperty("aws.accesskey"),
+    log.debug("Start Loading AWS Properties");
+    log.debug("AWS AccessKey is {} and SecretKey is {}", env.getProperty("aws.accesskey"),
         env.getProperty("aws.secretkey"));
-    log.info("AWS Bucket is {}", env.getProperty("aws.bucket"));
-    log.info("End Loading AWS Properties");
+    log.debug("AWS Bucket is {}", env.getProperty("aws.bucket"));
+    log.debug("End Loading AWS Properties");
 
     // Connect to AWS resources and do something
 
@@ -70,11 +70,11 @@ public class DataLoader implements CommandLineRunner {
 
   private boolean connectToMySQL() {
 
-    log.info("Start Loading MySQL Properties");
-    log.info("Url is {}", env.getProperty("db.url"));
-    log.info("UserName is {}", env.getProperty("db.username"));
-    log.info("Password is {}", env.getProperty("db.password"));
-    log.info("End Loading MySQL Properties");
+    log.debug("Start Loading MySQL Properties");
+    log.debug("Url is {}", env.getProperty("db.url"));
+    log.debug("UserName is {}", env.getProperty("db.username"));
+    log.debug("Password is {}", env.getProperty("db.password"));
+    log.debug("End Loading MySQL Properties");
 
     // Connect to DB MySQL resources and do something
 
@@ -86,7 +86,7 @@ public class DataLoader implements CommandLineRunner {
 
     SimpleCommandLinePropertySource ps = new SimpleCommandLinePropertySource(arg0);
     String encryptor = (String) ps.getProperty("jasypt.encryptor.password");
-    log.info("JASP Master Creds is {}", encryptor);
+    log.debug("JASP Master Creds is {}", encryptor);
 
     connectToMySQL();
 
